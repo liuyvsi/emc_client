@@ -1,0 +1,32 @@
+{
+    "Converter_name":"HJ212-json",
+    "head" : "CP=&&",
+    "tail" : "&&",
+    "Spliter": ";",
+    "Connector":"=",
+    "Table": "test_table",
+    "LocalParameters": [
+      {
+        "ParameterName": "Parameter1",
+        "FormatExpression": "N3.1",
+        "Data": "0.0"
+      },
+      {
+        "ParameterName": "Parameter2",
+        "FormatExpression": "C20",
+        "Data": ""
+      },
+      {
+        "ParameterName": "Parameter3",
+        "FormatExpression": "N2",
+        "Data": "0"
+      },
+      {
+        "ParameterName": "Parameter4",
+        "FormatExpression": "N7.2",
+        "Data": "0.00"
+      }
+   
+    ]
+  }
+  
