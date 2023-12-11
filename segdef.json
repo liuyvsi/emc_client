@@ -1,0 +1,40 @@
+
+{
+    "segment":[
+      {
+        "QN":"YYYYMMDDHHMMSSZZZ",
+        "max_length": 17
+      },
+      {
+        "ST":"0255",
+        "max_length": 2
+      },
+      {
+        "CN":"9000",
+        "max_length":4
+      },
+      {
+        "PW":"666666",
+        "max_length":6
+      },
+      {
+        "MN":"xxxxxxxxxxxxxxxxxxxxxxxx",
+        "max_length":24
+      },
+      {
+        "Flag":"0",
+        "max_length":1
+      },
+      {
+        "PNUM":"0020",
+        "max_length":4
+      },
+      {
+        "PNO":"0020",
+        "max_length":4
+      },
+      {
+        "CP":"xxxxxxxxxxx",
+        "max_length":946
+      }]
+    } 
