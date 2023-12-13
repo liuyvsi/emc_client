@@ -115,3 +115,4 @@ class JSONSegmenter:
             concatenated_cp += segment["CP"]
 
         return concatenated_cp
+

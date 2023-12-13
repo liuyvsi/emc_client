@@ -72,3 +72,4 @@ class NetworkProtocol:
 def read_protocol_from_file(file_name):
     with open(file_name, 'r') as file:
         return json.load(file)
+    

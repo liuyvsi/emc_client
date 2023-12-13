@@ -2,9 +2,6 @@ import json
 import package_mod
 
 
-
-
-
 # Read protocol JSON from file
 file_name = '/app/emcdatagenV1/packdef.json'
 protocol_json = package_mod.read_protocol_from_file(file_name)
