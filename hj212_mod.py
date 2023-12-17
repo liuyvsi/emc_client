@@ -1,9 +1,6 @@
-# copied from hj212_mod.py
-# copied from segtes1.py 
 # filename： hj212_mod.py
-
 import json
-
+import socket
 
 class NetworkProtocol:
     def __init__(self, protocol_json):
@@ -13,6 +10,8 @@ class NetworkProtocol:
         # Generate length and CRC based on data_to_pack
         length = str(len(data_to_pack)).zfill(4)
         # Calculate CRC
+
+
         crc = self.generate_crc(data_to_pack)  # Generate CRC value
         
         packed_data = ""
@@ -58,6 +57,8 @@ class NetworkProtocol:
     def generate_crc(data):
         crc = 0xFFFF  # 初始化为 0xFFFF
         poly = 0xA001  # CRC-16 的多项式
+  #      if not isinstance(data, bytes):
+  #          data = data.encode('utf-8')  # Assuming UTF-8 encoding
 
         for byte in data:
             crc ^= ord(byte)
@@ -116,3 +117,69 @@ class JSONSegmenter:
 
         return concatenated_cp
 
+class JSONByteConverter:
+    @staticmethod
+    def json_to_bytes(data):
+        byte_string = []
+        for key, value in data.items():
+            if key == 'CP':
+                byte_string.append(f"{key}=&&{value}&&")
+            else:
+                byte_string.append(f"{key}={value}")
+        return ';'.join(byte_string) + ';'
+
+
+    @staticmethod
+    def bytes_to_json(byte_string):
+        byte_string = byte_string.decode('utf-8')
+        if byte_string.endswith(';'):
+            byte_string = byte_string[:-1]
+        items = byte_string.split(';')
+        json_data = {}
+        for item in items:
+            key, value = item.split('=')
+            json_data[key] = value
+        return json_data
+
+class DataProcessor:
+    def __init__(self, config_file):
+        self.config = self.read_config(config_file)
+        self.segmenter = JSONSegmenter(self.config['ST'], self.config['CN'],
+                                                self.config['PW'], self.config['MN'])
+        self.network_protocol = NetworkProtocol(read_protocol_from_file('packdef.json'))
+
+    @staticmethod
+    def read_config(file_name):
+        with open(file_name, 'r') as file:
+            return json.load(file)
+
+    def send_data(self, content):
+        segmented_data = self.segmenter.segment_data(content)
+
+        for segment in segmented_data:
+            str_data = JSONByteConverter.json_to_bytes(segment)
+            packed_data = self.network_protocol.pack(str_data)
+      
+            self._send_udp(packed_data, self.config['destin_ip'], self.config['destin_port'])
+
+    def receive_data(self):
+        udp_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        udp_server.bind((self.config['local_ip'], self.config['local_port']))
+
+        received_segments = []
+        while True:
+            data, _ = udp_server.recvfrom(1124)  # Change the buffer size if needed
+            unpacked_data = self.network_protocol.unpack(data.decode('utf-8'))
+            received_segments.append(unpacked_data)
+
+            if len(received_segments) == int(received_segments[0]['PNUM']):
+                break
+
+        concatenated_data = self.segmenter.concatenate_segments(received_segments)
+        return concatenated_data
+
+    @staticmethod
+    def _send_udp(data, destin_ip, destin_port):
+        udp_client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        udp_client.sendto(data.encode('utf-8'), (destin_ip, destin_port))
+        udp_client.close()
