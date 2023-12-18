@@ -1,0 +1,12 @@
+{
+    "ST":"clientST",
+    "CN":"clientCN",
+    "PW":"YourPW",
+    "MN":"clientMN",
+    "local_ip": "0.0.0.0",
+    "local_port": 12345,
+    "destin_ip": "172.17.0.3",
+    "destin_port": 12345
+    
+  }
+  
