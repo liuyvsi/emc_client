@@ -292,7 +292,7 @@ class MessageGenerator:
     
 
     def load_host_config(self):
-        with open('/app/emcdatagen/host.json', 'r') as file:
+        with open('host_conf.json', 'r') as file:
             config_data = json.load(file)
         return HostConfig(config_data)
 
