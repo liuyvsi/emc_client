@@ -1,0 +1,44 @@
+{
+    "UniqueIdentifier": "YourUniqueIdentifier",
+    "HostName": "YourHostName",
+    
+    "LocalParameters": [
+      {
+        "ParameterName": "Parameter1",
+        "FormatExpression": "N3.1",
+        "NormalMax": 100,
+        "NormalMin": 0,
+        "GenerateMin": 0,
+        "GenerateMax": 100,
+        "DataGenerationIntervalInSeconds": 1
+      },
+      {
+        "ParameterName": "Parameter2",
+        "FormatExpression": "N2.9",
+        "NormalMax": 50,
+        "NormalMin": 10,
+        "GenerateMin": 10,
+        "GenerateMax": 50,
+        "DataGenerationIntervalInSeconds": 1
+      },
+      {
+        "ParameterName": "Parameter3",
+        "FormatExpression": "N4",
+        "NormalMax": 1000,
+        "NormalMin": 500,
+        "GenerateMin": 500,
+        "GenerateMax": 1000,
+        "DataGenerationIntervalInSeconds": 1
+      },
+      {
+        "ParameterName": "Parameter4",
+        "FormatExpression": "N2.1",
+        "NormalMax": 11,
+        "NormalMin": 0,
+        "GenerateMin": 0.1,
+        "GenerateMax": 10.0,
+        "DataGenerationIntervalInSeconds": 1
+      }
+    ]
+  }
+  
